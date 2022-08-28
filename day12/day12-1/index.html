@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="main.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="clock">
+    </div>
+    <button class="stop">Stop</button>
+    <button class="start">Start</button>
+    <script>
+        const stopBtn = document.querySelector('.stop');
+        const startBtn = document.querySelector('.start');
+        // gọi setTimes trước 1 lần để lúc load lại page nó hiện tgian hiện tại ngay lập tức
+        
+        function setTimes(){
+            let information = document.querySelector('.clock');
+            const currentDate = new Date();
+            const hours = currentDate.getHours();
+            const minutes = currentDate.getMinutes();
+            const seconds = currentDate.getSeconds();
+
+            //innerText để truyền value text cho 1 element
+            information.innerText = `${hours} : ${minutes} : ${seconds} ${hours > 12 ? 'PM' : 'AM'}`
+        }
+
+        setTimes();
+        // -> sau đó xài setInterval để gọi setTimes mỗi 1s
+        let timeInterval = setInterval(setTimes,1000);
+
+        function handleStartInterval(){
+            setTimes();
+            timeInterval = setInterval(setTimes,1000);
+        }
+
+        function handleStopInterval(){
+            clearInterval(timeInterval);
+        }  
+
+        startBtn.addEventListener('click', handleStartInterval);
+        stopBtn.addEventListener('click', handleStopInterval); 
+
+        //setInterval là gọi 1 function nào đó sau 1 khoảng tgian đc setup
+        //setTimeOut là gọi 1 function 1 lần duy nhất sau 1 khoảng tgian đc setup
+    </script>
+</body>
+</html>
